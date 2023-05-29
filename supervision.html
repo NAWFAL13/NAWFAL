@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Supervision</title>
+        <script src="monjs"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="banner">
+                    <h1>Home Technology</h1>
+                </div>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="presentation.html">Presentation</a></li>
+                    <li><a href="supervision.html">Ma supervision</a></li>
+                    <li><a href="connexion.html">Connexion</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            
+
+        </header>
+    </body>
+    <main>
+        <article>
+            <H1>
+                Ma supervision
+            </h1>
+            <ul>
+                <li><a href="#T1">SEMESTRE 1</a></li>
+                <li><a href="#T2">/Installation de station</a></li>
+                <li><a href="#T3">/Machine virtuelle</a></li>
+                <li><a href="#T4">/La variable PATH</a></li>
+                <li><a href="#T6">SEMESTRE 2 </a></li>
+                <li><a href="#T7">/Connexion Thorin, identification des paramètres </a></li>
+                <li><a href="#T8">/Routeur sur thorin</a></li>
+                <li><a href="#T9">/Serveur Apache ,Asterisk</a></li>
+                <li><a href="#T10">/Recherche de panne</a></li>
+                <li><a href="#T11">/Partage de fichier</a></li>
+            </ul>
+            <body>
+                <h2 id="T1"><font style='color:red'><center><strong>SEMESTRE 1</strong></center></font></h2>
+                    <h3 id="T2"><font style='color:blue'><center><strong>/Installation de station</strong></center></font></h3>
+                        <strong>##Installation</strong>
+                        <br>Avant tout telecharger sur debian.org le .ISO
+                        <br>creation de la VM avec la commande : <font style='color:Purple'>qemu-img create -f qcow2 debian-alimroivili.qcow2 4G</font>
+                        <b>ET pour finir demarrer la avec la commande : <font style='color:Purple'>kvm -m 1000 -hda debian-alimroivili.qcow2 -cdrom debian-11.5.0-amd64-netinst.iso</font>
+                        <br>====1.1. Nom de la station
+                        <br>Pour afficher le nom de la station : <font style='color:Purple'>uname -n</font>
+                        <br>====1.2 Le nom de l'utilisateur
+                        <br>Pour afficher le nom de d utilisateur : <font style='color:Purple'>id</font>
+                        <br>====1.3 Les quartre paramètre IP
+                        <br>LES QUARTRES PARAMETRES:
+                        <br>address IP ET Masque : <font style='color:Purple'>ip a</font>
+                        <br>DNS :<font style='color:Purple'>cat /etc/resolv.conf</font>
+                        <br>PASSRELLE: <font style='color:Purple'>ip route show</font>
+                        <br>====1.4 Aptitude
+                        <br>Install aptitude : <font style='color:Purple'>apt install aptitude</font>
+                        <br>Lancer aptitude : <font style='color:Purple'>aptitude</font>
+
+                    <h3 id="T3"><font style='color:blue'><center><strong>/Machine virtuelle</strong></center></font></h3>
+
+                        <br>====2.1 Montrer la machine virtuelle en fonctionnement
+                        <br>Lancer la VM : <font style='color:Purple'>kvm -m 1000 -hda debian-alimroivili.qcow2 -cdrom debian-11.5.0-amd64-netinst.iso</font>
+                        <br>====2.2 Arrêt puis clonage de la machine
+                        <br>Pour passer administrateur : <font style='color:Purple'>su-</font>
+                        <br>Arrêt : <font style='color:Purple'>systemctl poweroff</font>
+                        <br>Clonage : <font style='color:Purple'>cp debian-mhoudini.qcow2 copie-debian-alimroivili.qcow2</font>
+                        <br>====2.3 Lancement des deux machines, une avec et une sans VDE2
+                        <br>Pour lancer sans VDE2 VOIR LE 1 TOUT SIMPLEMENT
+                        <br>Pour lancer avec VDE2 : :<font style='color:Purple'>kvm -m 1000 -hda copie-debian-alimroivili.qcow2 -net nic,macaddr=42:30:03:01:01:02 -net vde,sock=/var  /run/vde2/kvmtap0.ctl</font>
+                        <br>====2.4 Les différences IP
+                        <br>Faire la commande :<font style='color:Purple'>ip a </font>
+
+                        <br>====2.5 Sauvegarde de la machine virtuelle sur Thorin
+                        <br>Pour la Sauvegarde : <font style='color:Purple'>scp debian-alimroivili.qcow2 alimroivili@thorin:</font>
+                    <h3 id="T4"><font style='color:blue'><center><strong>/La variable PATH</strong></center></font></h3>
+
+                        <br>====3.1 Ouverture de deux sessions
+                        <br>OUVRE LA MACHINE POUR LA DEUXIEME SESSION AVEC LA COMMANDE ALT FLECHE DE DROIT OU GAUCHE
+                        <br>====3.2 Différences entre les variables PATH de root et utilisateur
+                        <font style='color:Purple'>echo $PATH</font>
+
+                        <br>====3.3 Modification de la variable PATH
+                        <br><font style='color:Purple'>nano .bashrc</font>
+                        <br>====3.4 Modification permanente dans le fichier .bashre
+                        <br><font style='color:Purple'> export PATH=$PATH:/sbin</font>
+                        <br>==== 3.5 deconnection
+                        <br><font style='color:Purple'>exit  </font>exit
+
+                <h2 id="T6"><font style='color:red'><center><strong>SEMESTRE 2</strong></center></font></h2>
+
+                    <h3 id="T7">===<font style='color:blue'><center><strong>/Connexion Thorin, identification des paramètres </strong></center></font>===</h3>
+
+                        <br>====1.1. Connexion sans mot de passe vers Thorin :====
+                        <br> Generer un keys avec la commande : <font style='color:Purple'>ssh-keygen -t rsa</font>
+                        <br>====1.2 Importer la clé publique sur Thorin ====
+                        <br>Importer la clé publique sur Thorin :<font style='color:Purple'>scp .ssh/id_rsa.pub alimroivili@thorin:</font>
+                        <br>====1.3 Connection Sur ssh====
+                        <br>Connexion ssh :<font style='color:Purple'>ssh alimroivili@thorin</font>
+                        <br>====1.4 mettre l'autorisation ====
+                        <br>Mettre la cle publique dans un fichier d’autorisation :<font style='color:Purple'>cat  id-rsa .pub > .ssh/authorized_keys</font>
+                        <br>====1.5. liste des adresses dans le Wiki :====
+                        <br>Pour obtenir l'adresse IP de ma station en salle Osaka, j'exécute la commande sur ma machine :<font style='color:Purple'>ip a</font>
+                        voici l'adresse obtenue : 10.33.109.110 /24 en salle vladivostok
+                        
+                        <br>====1.6 obtenir l'adresse IP de Thorin depuis la salle Osaka====
+                        <br>Pour obtenir l'adresse IP de Thorin depuis la salle Osaka, nous pouvons effectuer la commande ping thorin et observer l'adresse IP affichée grâce à la résolution d'hôte :<font style='color:Purple'>ping thorin</font>
+                        cela me donne L’adresse de Thorin : L’adresse de Thorin :10.30.3.4
+
+                        <br>====1.7 Je demande donc à voir les adresses IP des cartes réseau sur Thorin====
+                        <br>Pour obtenir les adresses de mes deux cartes réseau sur Thorin, j'effectue la commande tout en précisant que je souhaite voir celles dont l'identifiant est le mien (ici 7002).
+                        :<font style='color:Purple'>ip a | grep 7002</font>
+                        <br>Les deux adresses de mes cartes réseaux sur Thorin :
+                        - kvmstud7002 : '''10.4.2.1/24'''
+                        - kvmstudPriv7002 : '''10.244.2.1/24'''
+                        *Mes adresses réseaux :
+                        <br>- '''10.144.2.0/24'''
+                        <br>- '''10.4.2.0/24'''  
+                        <br>- '''10.244.2.0/24'''
+                        *Les adresses de mes serveurs virtuels :
+                        <br>- Routeur : '''10.4.2.10/24''' Sur le port VNC '''02'''
+                        <br>- Apache : '''10.144.2.10/24''' Sur le port VNC '''102'''
+                        <br>- Asterisk : '''10.144.2.20/24''' Sur le port VNC '''202'''
+                        
+
+
+                        <br>====1.8 Ports VNC ====
+
+                        <br>Mon identifiant sur Thorin est 7002 (obtenu par le biais de la commande '''id'''), j'utilise donc les ports VNC suivants :
+
+                        <br>- '''02'''
+                        <br> - '''102'''
+                        <br>- '''202'''
+                        <br>- '''302''', etc...
+                        <br>====1.9 Xlogo ====
+                        <br>Afin d'afficher xlogo de thorin sur la machine locale, On se connecte en ssh en ajoutant <code>-X</code> à la  
+                        commande <code>ssh</code>
+                        Ensuite on entre la commande <code>xlogo</code>.
+                        <br>====1.10 Affichage des compteurs====
+                        <br>-Identification du disque :<font style='color:Purple'>df | grep users</font>
+                        resultat: /dev/sda6
+                        <br>-Utilisation du disque sda6 :<font style='color:Purple'>df -h | grep /dev/sda6</font>
+                        resultat: df -h | grep /dev/sda6
+                        on utilise 15% du disque.
+                        <br>-Consommation personnelle sur ce disque :<font style='color:Purple'>du -ah /users/stud/1A/alimroivili</font>
+                        resultat: 4.9   /user/stud/1A/alimroivili
+                        <br> ====1.11 RAM ====
+                        -pour nous affichier la ram : <font style='color:Purple'>free -h</font>
+                        <br>====1.12 CPU====
+                        -Pour avoir des information sur le cpu : <font style='color:Purple'>lscpu</font>
+                        <br>====1.13 Effacer la clé de la machine cible====
+                        <br>-pour effacer la clé de la machine cible : <font style='color:Purple'>ssh-keygen -R thorin -f .ssh/known_hosts</font>
+                        [[Fichier:stud2.jpg]]
+                    <h3 id="T8"><font style='color:blue'><center><strong>/Routeur sur thorin</strong></center></font></h3>
+                        ===Connexion SSH===
+                        Installer au prealable sur la machine ssh
+                        <pre style="color:blue">
+                        apt install ssh
+                        </pre>
+                        <pre style="color:blue">
+                        ssh alimroivili@(ip machine)
+                        </pre>
+                        ===Installation d'un serveur sur thorin===
+                        Pour créer mon serveur sur thorin je créer mon fichier qcow2 avec :
+                        <pre style="color:blue">
+                        qemu-img create -f qcow2 alimroivili-Routeur.qcow2 4G
+                        </pre>
+                        Je transfère également un copie de l'iso de debian 11 que j'ai préalablement télécharger sur la machine diabolo en Osaka.
+                        <pre style="color:blue">
+                        scp debian-11.iso alimroivili@thorin:
+                        </pre>
+
+                        ====Lancement d'une VM avec deux interfaces réseaux====
+                        Il faut pour cela répéter le couple -net nic MAC avec les bon paramètres réseau et bien faire gaffe à pas mettre les mêmes addresses MAC.
+                        <pre style="color:blue">
+                        kvm -m 2G -hda alimroivili-Routeur.qcow2 -net nic,macaddr=42:70:10:01:01:01 -net vde,sock=/var/run/vde2/kvmstud7002.ctl -net nic,macaddr=42:70:10:01:01:02 -net vde,sock=/var/run/vde2/kvmstudPriv7002.ctl -vnc :02 -nographic
+                        </pre>
+
+                        ====Lancement d'une VM avec deux interfaces réseaux====
+
+                        <pre style="color:blue">vinagre thorin:02</pre>
+
+                        ====Affectation des adresses IP====
+                        Afin d'affecter des adresses statiques à nos interfaces, il faut éditer le fichier /etc/network/interfaces en adéquation avec les adresses indiquées sur mon dessin.
+                        <pre>
+                        allow-hotplug ens3
+                        iface ens3 inet static
+                        address 10.244.2.1/24
+                        gateway 10.4.2.10
+
+                        allow-hotplug ens4
+                        iface ens4 inet static
+                        address 10.4.2.1/24
+                        gateway 10.4.2.10
+                        </pre>
+
+                        *'''activer le routage :'''
+                        Crée un fichier routeur.conf dans /etc/sysctl.d/
+                        <br> Dans se fichier j'écris : "net.ipv4.ip_forward=1"
+                        <br> Ensuite  : sysctl -p /etc/sysctl.d/routeur.conf
+                        <br> Et normalement la valeur du fichier /proc/sys/net/ipv4/ip_forward est passer de 0 à 1 ce qui signifie que le routage est maintenant activé.
+
+                        ====Utilisation tshark====
+                        Il faut installer le paquet tshark sur le routeur, et pour ça il faut changer l'ip du dns en l'ip 10.4.10.1.
+                        <pre style="color:blue">
+                        nano /etc/resolv.conf
+                        Puis:
+                        nameserver 10.4.2.1
+                        </pre>
+                        Et maintenant je peux installer le paquet tshark :
+                        <pre style="color:blue">apt install tshark</pre>
+                        Et je peux l'utiliser donc je le lance sur l'interface ens3 :
+                        <pre style="color:blue">tshark -i ens3</pre>
+                        Ensuite je vais sur ma machine thorin et je ping mon serveur et ça donne ça:
+
+                        ====Utilisation de kpartx (récupération de données)====
+                        Je récupère l'image de mon routeur :
+                        <pre style="color:blue">scp alimroivili@thorin:alimroivili-Routeur.qcow2 .</pre>
+                        Je convertie mon image en .raw :
+                        <pre style="color:blue">qemu-img convert -O raw alimroivili-Routeur.qcow2 alimroivili-Routeur.raw</pre>
+                        On monte le fichier kpartx :
+                        <pre style="color:blue">
+                        sudo kpartx -av alimroivili-Routeur.raw
+                        sudo mkdir /tmp/TEST
+                        sudo mount /dev/mapper/loop0p1 /tmp/TEST
+                        </pre>
+                        On accède à la machine avec :
+                        <pre style="color:blue">
+                        cd /tmp/TEST
+                        </pre>
+                        J'ajoute un fichier random dans mon répertoire TEST
+                        <pre style="color:blue">
+                        sudo touch /dev/mapper/loop0p1 /tmp/TEST/toto
+                        </pre>
+                        On demonte le fichier kpartx :
+                        <pre style="color:blue">
+                        sudo umount /tmp/TEST
+                        sudo kpartx -d alimroivili-Routeur.raw
+                        </pre>
+                        Je reconvertie mon fichier en qcow2 pour pouvoir la lancer
+                        <pre style="color:blue">
+                        qemu-img convert -O qcow2 alimroivili-Routeur.raw alimroivili-Routeur.qcow2
+                        </pre>
+                        connection en ssh
+                        <pre style="color:blue">
+                        ssh alimroivili@10.144.2.1
+                        </pre>
+
+
+                    <h3 id="T9"><font style='color:blue'><center><strong>/Serveur Apache ,Asterisk</strong></center></font></h3>
+
+
+                        Presentation des deux Serveur
+
+                        Serveur Apache
+                        <pre style="color:blue">
+                        kvm -m 2G -hda Serveur-Apache.qcow2 -net nic,macaddr=42:70:10:01:01:10 -net vde,sock=/var/run/vde2/kvmstudPriv7002.ctl -vnc :102 -nographic
+                        </pre>
+                        Serveur Asterisk
+                        <pre style="color:blue">
+                        kvm -m 2G -hda Serveur-Asterisk.qcow2 -net nic,macaddr=42:70:10:01:01:10 -net vde,sock=/var/run/vde2/kvmstudPriv7002.ctl -vnc :202 -nographic
+                        </pre>
+                        Les adresses de mes serveurs virtuels :
+
+                        <pre style="color:blue">
+                        - Routeur : 10.4.2.10/24 Sur le port VNC 02
+                        - Apache : 10.144.2.10/24 Sur le port VNC 102
+                        - Asterisk : 10.144.2.20/24 Sur le port VNC 202
+
+                        </pre>
+
+                        ====Lancement des Serveurs====
+
+                        <pre style="color:blue">vinagre thorin:(vos vnc)</pre>
+
+                        ====Installation de dnsmasq====
+                        sur le routeur:
+                        <pre style="color:blue">apt install dnsmasq</pre>
+
+                        ====utilisation du range (pool d’adresses)====
+                        Monter un Pool d'adresses:
+                        <pre style="color:blue">dhcp-range=10.144.2.3,10.144.2.254,255.255.255.0,12H
+                        </pre>
+
+                        ====Placer les addresse fix====
+                        Addresse fix des deux Serveurs(ajouter aux precedent):
+                        <pre style="color:blue">dhcp-host=42:70:10:01:01:10,Serveur-Apache,10.144.2.10,infinite
+                        dhcp-host=42:70:10:01:01:20,Serveur-Asterisk,10.144.2.20,infinite
+                        </pre>
+
+                        ====définition des noms====
+                        Modifier le fichier /etc/hosts:
+                        <pre style="color:blue">
+                        127.0.0.1      localhost
+                        127.0.1.1      routeur
+                        10.144.2.10   Serveur-Apache
+                        10.144.2.20   Serveur-Asterisk</pre>
+
+
+                        ====DEMONTRER par tshark que c’est bien le serveur prévu qui répond.====
+                        <pre style="color:blue">
+                        tshark -ni ens4 -Y dhcp
+                        tshark -ni ens4 -Y dns
+                        </pre>
+
+                    <h3 id="T10"><font style='color:blue'><center><strong>/Recherche de panne</strong></center></font></h3>
+                        ====1.Tshark ou tcpdump : montrer une connexion ( phases TCP et ports utilisés ) : ====
+                        SUR ROUTEUR:
+                        <pre style="color:blue">Lancer un capture :  sudo tshark -i ens4 -p 'port 22'
+                        </pre>
+                        SUR APACHE:
+                        Connexion sur le routeur puis déconnexion :
+                        <pre style="color:blue">
+                        ssh alimroivili@10.144.2.1
+                        </pre>
+                        PUIS une déconnexion immédiate
+                        <pre style="color:blue">
+                        exit
+                        </pre>
+                        SSH:
+                        POURQUOI CE PORT
+                        <pre style="color:blue">
+                        PORT SSH : 22
+                        </pre>
+                        SCENARIO DU DIALOGUE
+                        - Conexion : [SYN] [SYN, ACK] [ACK]
+                        - Dialoque : [ACK]
+                        - Fin : [FIN, ACK] [ACK] [FIN, ACK] [ACK]
+
+                        ====2.Logs : lister les ports ouverts sur un serveur distant :====
+                        SUR ROUTEUR:
+                        Regarder ce qui se passe sur le fichier logs
+                        chemin:<pre style="color:blue">sudo cat /var/log/syslog </pre>
+                        Laisser votre trace sur le fichier logs
+                        <pre style="color:blue">logger hello </pre>
+                        RETOURNER VOIR DANS LES FICHIER DES LOGS
+
+                        ====3.Nmap : lister les ports ouverts sur un serveur distant : ====
+                        SUR ROUTEUR:
+                        Installation de nmap : <pre style="color:blue"> sudo apt install nmap </pre>
+                        Scanner les ports ouverts de votre serveur Apache : <pre style="color:blue"> nmap -sT 10.144.2.10 </pre>
+                        ====4.SS : lister les ports ouverts en local : ====
+                        SUR APACHE:
+                        Lister les ports ouvert sur Apache :<pre style="color:blue">ss -tunlp</pre>
+
+                    <h3 id="T11"><font style='color:blue'><center><strong>/Partage de fichier</strong></center></font></h3>
+                    
+                        SERVEUR=ROUTEUR IP@<pre style="color:blue">10.144.2.1</pre>
+                        CLIENT=APACHE   IP@<pre style="color:blue">10.144.2.10</pre>
+                        <br>====NFS====
+                        <br>====Configuration du serveur :====
+                        <br>Installation NFS :<pre style="color:blue">sudo apt install nfs-kernel-server </pre>
+                        Crée le répertoire :<pre style="color:blue">mkdir NFS_serveur </pre>
+                        Chemin de NFS_serveur :<pre style="color:blue"> /home/alimroivili/NFS_serveur </pre>
+                        
+                        Exportation du répertoire :
+                        <pre style="color:blue"> sudo nano /etc/exports </pre>
+                        
+                        Ecrire:
+                        <pre style="color:blue">/home/alimroivili/NFS_serveur 10.144.46.33(rw,sync)</pre>
+                        
+                        Redémarrage du service NFS :
+                        <pre style="color:blue"> sudo service nfs-kernel-server restart </pre>
+                        <br>====Configuration du client:====
+                        
+                        <br>Installation du paquet NFS :
+                        <pre style="color:blue"> sudo apt install nfs-common </pre>
+                        
+                        Visualisation de la liste d'exportation :
+                        <pre style="color:blue"> showmount -e 10.144.46.1 </pre>
+                        
+                        l'exportation de NFS_serveur est disponible pour le client.
+                        
+                        Création d'un répertoire :
+                        <pre style="color:blue"> mkdir NFS_client </pre>
+                        
+                        
+                        refaire les étapes suivantes à chaque démarrage du client pour les resynchroniser :
+                        
+                        Passage en root :<pre style="color:blue"> su - </pre>
+                        
+                        Synchronisation entre NFS_serveur et NFS_client :
+                        <pre style="color:blue">mount 10.144.46.1:/home/alimroivili/NFS_serveur /home/alimroivili/NFS_client </pre>
+                        
+                        Vérification du montage :
+                        <pre style="color:blue"> df -h /home/alimroivili/NFS_client </pre>
+                        
+                        
+                        
+                        
+                        
+                        <br>====SAMBA====
+                        <br>====Configuration du serveur :====
+                        <br>Installation SAMBA :
+                        <pre style="color:blue">sudo apt install samba </pre>
+                        Crée le répertoire :
+                        <pre style="color:blue">mkdir Samba_serveur </pre>
+                        Chemin de Samba_serveur :
+                        <pre style="color:blue"> /home/alimroivili/Samba_serveur </pre>
+                        
+                        Édition du fichier de configuration Samba :
+                        <pre style="color:blue">
+                        sudo nano /etc/samba/smb.conf </pre>--> Ecrire :
+                        
+                            <pre style="color:blue">[samba]
+                            path = /home/alimroivili/Samba_serveur
+                            browseable = yes
+                            writeable = yes
+                            valid users = alimroivili</pre>
+                        
+                        Ajout d'un utilisateur avec son mot de passe :
+                        <pre style="color:blue"> sudo smbpasswd -a alimroivili </pre>
+                        
+                        Redémarrage du service :
+                        <pre style="color:blue"> sudo systemctl restart smbd </pre>
+                        
+                        <br>====Configuration du client:====
+                        
+                        <br>Installation du paquet Samba :
+                        <pre style="color:blue">sudo apt install cifs-utils </pre>
+                        
+                        Création d'un répertoire :
+                        <pre style="color:blue"> mkdir Samba_client </pre>
+                        
+                        Chemin de Samba_client :
+                        <pre style="color:blue"> /home/alimroivili/Samba_client </pre>
+                        
+                        
+                        
+                        Synchronisation entre Samba_serveur et Samba_client :
+                        <pre style="color:blue"> sudo mount -t cifs //10.144.46.1/samba /home/alimroivili/Samba_client -o username=alimroivili </pre>
+                        
+                        Vérification du montage :
+                        <pre style="color:blue"> df -h /home/alimroivili/Samba_client </pre>
+                        
+                        <br>====FUSE====
+                        <br>====Configuration du serveur :====
+                        <br>Installation FUSE :
+                        <pre style="color:blue">sudo apt install sshfs </pre>
+                        Crée le répertoire :
+                        <pre style="color:blue">mkdir Fuse_serveur </pre>
+                        Chemin de Samba_serveur :
+                        <pre style="color:blue"> /home/alimroivili/Fuse_serveur </pre>
+                        
+                        
+                        <br>====Configuration du client:====
+                        <br>Installation du paquet FUSE :
+                        <pre style="color:blue">
+                        sudo apt install sshfs </pre>
+                        
+                        Création d'un répertoire : mkdir FUSE_client
+                            <pre style="color:blue">mkdir FUSE_client
+                        </pre>
+                        
+                        Chemin de Samba_client :
+                        <pre style="color:blue"> /home/alimroivili/FUSE_client </pre>
+                        
+                        Synchronisation entre FUSE_serveur et FUSE_client :  
+                        
+                        <pre style="color:blue"> sshfs alimroivili@10.144.2.1:FUSE_serveur FUSE_client</pre>
+                        
+                        ET PUIS VOUS POUVEZ TESTER VOS TRANSFERT DE FICHIER
+
+
+
+
+            </body>
+
+            
+                <H3>Connexion</H3>
+                <form>
+                    <input type="email" placeholder="email" id="email"
+                    pattern=".+@globex\.com" size="30" required>
+                    <input type="password" placeholder="password" id="password"
+                    pattern="sgffjbs15" size="30" required>
+                    <input type="submit" value="valider">
+                    <input type="reset" value="réinitialiser">
+                </form>
+    
+
+            </aside>
+        </article>
+    </main>
+    <footer>
+        <div>
+            <p>©RTSupervision
+            </p>
+        </div>
+        <div>
+            <a href="contact.html" title="Ceci est un lien image HTML"><img alt="texte alternatif pour le lien image" src="img/social_mail.png"/></a>
+                
+            <a href="http://www.google.com" title="Ceci est un lien image HTML"><img alt="texte alternatif pour le lien image" src="img/social_google.png"/></a>
+                
+            <a href="https://www.linkedin.com/in/nawfal-ali-mroivili-602023209/" title="Ceci est un lien image HTML"><img alt="texte alternatif pour le lien image" src="img/social_linkedin.png"/></a>
+                
+            <a href="http://www.facebook.com" title="Ceci est un lien image HTML"><img alt="texte alternatif pour le lien image" src="img/social_facebook.png"/>
+                
+            </a>
+        </div>
+        <div>
+            <p>01/01/2018</p>
+        </div>
+    </footer>   
+    
+</html>
